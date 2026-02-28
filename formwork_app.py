@@ -830,10 +830,12 @@ with tabs[9]:
                                orientation="h",marker_color=d["C"],marker_line_width=0,
                                text=f"M{d['S']}–M{d['E']}",textposition="inside",
                                textfont=dict(color=DARK_BG,size=11,family="DM Mono")))
-    fig_g.update_layout(**dark_layout("Deployment Gantt (Months)",height=260),
-                        barmode="overlay",showlegend=False,
-                        xaxis=dict(title="Month",dtick=3,range=[0,19],gridcolor=BORDER),
-                        yaxis=dict(autorange="reversed"))
+    gantt_layout = dark_layout("Deployment Gantt (Months)", height=260)
+    gantt_layout["xaxis"] = dict(title="Month", dtick=3, range=[0,19],
+                                  gridcolor=BORDER, zerolinecolor=BORDER, linecolor=BORDER)
+    gantt_layout["yaxis"] = dict(autorange="reversed", gridcolor=BORDER,
+                                  zerolinecolor=BORDER, linecolor=BORDER)
+    fig_g.update_layout(**gantt_layout, barmode="overlay", showlegend=False)
     st.plotly_chart(fig_g, use_container_width=True)
 
 # ─── FOOTER ───────────────────────────────────────────────────────────────────
@@ -844,4 +846,5 @@ st.markdown(f"""
   <span style='font-family:DM Mono,monospace;'>Formwork Optimization System v2.0 · L&T CreaTech 2025</span>
 </div>
 """, unsafe_allow_html=True)
+
 
